@@ -1,0 +1,86 @@
+﻿@model MVC_CRUD_ADO.Models.EmployeeViewModel
+
+@Html.HiddenFor(m => m.Employee.Id)
+
+<!-- Modal content-->
+<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add Employee</h4>
+    </div>
+
+    <div class="modal-body">
+        <div class="form-horizontal">
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Employee.Department, new { @class = "control-label col-sm-2" })
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(m => m.Employee.DepartmentId, (SelectList)ViewBag.DdlDepartment, "Select Department", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Employee.DepartmentId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Employee.FirstName, new { @class = "control-label col-sm-2" })
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.Employee.FirstName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Employee.FirstName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Employee.LastName, new { @class = "control-label col-sm-2" })
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.Employee.LastName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Employee.LastName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Employee.Email, new { @class = "control-label col-sm-2" })
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.Employee.Email, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Employee.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Employee.Phone, new { @class = "control-label col-sm-2" })
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.Employee.Phone, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Employee.Phone, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Employee.BirthDate, new { @class = "control-label col-sm-2" })
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.Employee.BirthDate, "{0:yyyy/MM/dd}", new { @class = "form-control", type = "date" })
+                    @Html.ValidationMessageFor(m => m.Employee.BirthDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-10 col-sm-offset-2">
+                    <label class="radio-inline">
+                        @Html.RadioButtonFor(m => m.Employee.Gender, (int)MVC_CRUD_ADO.Models.Utility.Gender.Male)
+                        @Enum.GetName(typeof(MVC_CRUD_ADO.Models.Utility.Gender), 0)
+                    </label>
+                    <label class="radio-inline">
+                        @Html.RadioButtonFor(m => m.Employee.Gender, (int)MVC_CRUD_ADO.Models.Utility.Gender.Female)
+                        @Enum.GetName(typeof(MVC_CRUD_ADO.Models.Utility.Gender), 1)
+                    </label>
+                </div>
+                @Html.ValidationMessageFor(m => m.Employee.Gender, "", new { @class = "text-danger col-sm-10 col-sm-offset-2" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Employee.Address, new { @class = "control-label col-sm-2" })
+                <div class="col-sm-10">
+                    @Html.TextAreaFor(m => m.Employee.Address, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Employee.Address, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-success">Save</button>
+    </div>
+</div>
+

@@ -1,0 +1,39 @@
+﻿@model MVC_CRUD_ADO.Models.EmployeeViewModel
+
+
+<div class="table-responsive">
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Birth Date</th>
+                <th>Gender</th>
+                <th>Address</th>
+                <th>Department</th>
+                <th colspan="2">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var emp in Model.Employees)
+            {
+                <tr>
+                    <td>@emp.FirstName</td>
+                    <td>@emp.LastName</td>
+                    <td>@emp.Email</td>
+                    <td>@emp.Phone</td>
+                    <td>@emp.BirthDate.Value.ToShortDateString()</td>
+                    @*<td>@emp.Gender</td>*@
+                    <td>@Enum.GetName(typeof(MVC_CRUD_ADO.Models.Utility.Gender), emp.Gender)</td>
+                    <td>@emp.Address</td>
+                    <td>@emp.Department.DepartmentName</td>
+                    <td class="text-center"><i class="glyphicon glyphicon-edit text-primary" style="cursor:pointer;" onclick="EditEmployee(@emp.Id)"></i></td>
+                    <td class="text-center"><i class="glyphicon glyphicon-trash text-danger" style="cursor:pointer;" onclick="DeleteEmployee(@emp.Id)"></i></td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,96 @@
+﻿@model MVC_CRUD_ADO.Models.EmployeeViewModel
+
+@{
+    /**/
+
+    ViewBag.Title = "Index";
+}
+
+
+<br />&nbsp;
+<div class="row">
+    <div class="col-lg-12">
+        <input id="btnAddEmployee" type="button" class="btn btn-primary" value="Add Employee" />
+        <hr />
+    </div>
+
+
+    <div class="col-lg-12">
+
+        @using (Ajax.BeginForm("GetEmployeeList", "Employee",
+            new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "divEmployees" },
+            new { id = "frmEmployeeList" }))
+        {
+            <div id="divEmployees">
+                @Html.Partial("_EmployeeListPartial", Model)
+            </div>
+        }
+
+
+    </div>
+</div>
+
+
+@using (Ajax.BeginForm("SaveEmployee", "Employee",
+    new AjaxOptions
+    {
+        HttpMethod = "POST",
+        UpdateTargetId = "divAddEmployee",
+        OnSuccess = "AddEmployeeSuccess",
+        OnFailure = "AddEmployeeFailure"
+    },
+    new { id = "frmAddEmployee" }))
+{
+    <div class="modal fade" id="modalAddEMployee" role="dialog">
+        <div class="modal-dialog">
+            <div id="divAddEmployee">
+                @Html.Partial("_AddEmployeePartial", Model)
+            </div>
+        </div>
+    </div>
+}
+
+
+
+@section scripts{
+
+    <script>
+        $(document).ready(function () {
+            $("#btnAddEmployee").click(function () {
+                $("#divAddEmployee").load("/Employee/AddEmployee/", function (response, status, xhr) {
+                    if (status == "success") {
+                        $("#modalAddEMployee").modal("toggle");
+                    }
+                });
+            });
+
+        });
+
+        function AddEmployeeSuccess(data) {
+            alert("Employee has been saved.");
+            $("#modalAddEMployee").modal("toggle");
+            $("#frmEmployeeList").submit();
+        }
+        function AddEmployeeFailure(data) {
+            alert("Error Occured");
+        }
+
+        function EditEmployee(id) {
+            $("#divAddEmployee").load("/Employee/EditEmployee/" + id, function (response, status, xhr) {
+                if (status == "success") {
+                    $("#modalAddEMployee").modal("toggle");
+                    $("#frmEmployeeList").submit();
+
+                }
+            });
+        }
+        function DeleteEmployee(id) {
+            $.post("/Employee/DeleteEmployee/" + id, function (data, status) {
+                $("#frmEmployeeList").submit();
+            });
+        }
+
+    </script>
+
+
+}
